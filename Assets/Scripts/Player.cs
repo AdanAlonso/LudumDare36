@@ -117,6 +117,8 @@ public class Player : MonoBehaviour {
 	}
 
 	IEnumerator Dead() {
+		rb.velocity = Vector2.zero;
+		rb.isKinematic = true;
 		while (state == States.Dead) {
 			yield return 0;
 		}

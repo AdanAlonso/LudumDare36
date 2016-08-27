@@ -7,9 +7,8 @@ public class Fade : MonoBehaviour {
     public Image fadeTexture;
     public float fadeTime;
 
-    void Start() {
-		if (Time.timeScale != 0)
-        	FadeIn();
+    void Awake() {
+        FadeIn();
     }
 
     public void FadeIn() {
@@ -30,7 +29,7 @@ public class Fade : MonoBehaviour {
             fadeTexture.color = new Color(fadeTexture.color.r, fadeTexture.color.g, fadeTexture.color.b, alpha);
 
             yield return 0;
-            timer += Time.deltaTime;
+            timer += Time.fixedDeltaTime;
         }
         fadeTexture.color = new Color(fadeTexture.color.r, fadeTexture.color.g, fadeTexture.color.b, alphaTo);
     }

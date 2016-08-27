@@ -4,6 +4,7 @@ using System.Collections;
 public class LevelGenerator : MonoBehaviour {
 	[System.Serializable]
 	public enum States {
+		stopped,
 		s1,
 		s2,
 		s4
@@ -16,7 +17,7 @@ public class LevelGenerator : MonoBehaviour {
 	public float timeBetweenPlatforms;
 	public float platformLifetime;
 
-	public GameObject collectablePrefab;
+	public GameObject[] collectablePrefabs;
 	public float collectableProbability;
 	public float collectableLifetime;
 	public float collectableHeight;
@@ -33,6 +34,19 @@ public class LevelGenerator : MonoBehaviour {
 		onSand = playerRb.velocity.x < 3;
 	}
 
+	void OnEnable() {
+		PlayerKiller.onPlayerDeath += PlayerKiller_onPlayerDeath;
+	}
+
+	void OnDisable() {
+		PlayerKiller.onPlayerDeath -= PlayerKiller_onPlayerDeath;
+	}
+
+	void PlayerKiller_onPlayerDeath ()
+	{
+		ChangeState (States.stopped);
+	}
+
 	IEnumerator FSM() {
 		ChangeState (state);
 		while (true) {
@@ -42,6 +56,12 @@ public class LevelGenerator : MonoBehaviour {
 
 	void ChangeState(States newState) {
 		state = newState;
+	}
+
+	IEnumerator stopped() {
+		while (state == States.stopped) {
+			yield return 0;
+		}
 	}
 
 	IEnumerator s1() {
@@ -93,7 +113,7 @@ public class LevelGenerator : MonoBehaviour {
 
 		float random = Random.Range(0f, 1f);
 		if (random < collectableProbability) {
-			GameObject collectable = Instantiate (collectablePrefab, at.position + Vector3.up * collectableHeight, Quaternion.identity) as GameObject;
+			GameObject collectable = Instantiate (collectablePrefabs[Random.Range(0, collectablePrefabs.Length)], at.position + Vector3.up * collectableHeight, Quaternion.identity) as GameObject;
 			Destroy (collectable, collectableLifetime);
 		}
 	}

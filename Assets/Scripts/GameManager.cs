@@ -4,6 +4,9 @@ using System.Collections;
 
 public class GameManager : MonoBehaviour {
 
+	public GameObject gameOver;
+	public Animator gameOverAnimator;
+
 	void OnEnable() {
 		PlayerKiller.onPlayerDeath += onPlayerDeath;
 	}
@@ -13,12 +16,18 @@ public class GameManager : MonoBehaviour {
 	}
 
 	void onPlayerDeath() {
-		StartCoroutine (resetLevel());
+		gameOver.SetActive (true);
+		gameOverAnimator.SetTrigger ("GameOver");
 	}
 
-	IEnumerator resetLevel() {
+	public void resetLevel() {
+		StartCoroutine (resetLevelCorroutine ());
+	}
+
+	IEnumerator resetLevelCorroutine() {
 		GetComponent<Fade> ().FadeOut ();
 		yield return new WaitForSeconds (GetComponent<Fade> ().fadeTime);
 		SceneManager.LoadScene (SceneManager.GetActiveScene().buildIndex);
 	}
+
 }

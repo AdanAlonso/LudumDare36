@@ -11,6 +11,19 @@ public class MoveForward : MonoBehaviour {
 		rb = GetComponent<Rigidbody2D> ();
 	}
 
+	void OnEnable() {
+		PlayerKiller.onPlayerDeath += PlayerKiller_onPlayerDeath;
+	}
+
+	void OnDisable() {
+		PlayerKiller.onPlayerDeath -= PlayerKiller_onPlayerDeath;
+	}
+
+	void PlayerKiller_onPlayerDeath ()
+	{
+		moveVelocity = 0f;
+	}
+
 	void Update() {
 		rb.velocity = new Vector2 (moveVelocity, rb.velocity.y);
 	}
