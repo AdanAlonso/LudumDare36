@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerKiller : MonoBehaviour {
+public class ActiveZone : MonoBehaviour {
 	public delegate void PlayerDeath ();
 	public static event PlayerDeath onPlayerDeath;
 
@@ -11,5 +11,6 @@ public class PlayerKiller : MonoBehaviour {
 			if (onPlayerDeath != null)
 				onPlayerDeath ();
 		}
+        Destroy(other.gameObject);
 	}
 }

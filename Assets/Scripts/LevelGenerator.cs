@@ -15,31 +15,23 @@ public class LevelGenerator : MonoBehaviour {
 
 	public GameObject platformPrefab;
 	public float timeBetweenPlatforms;
-	public float platformLifetime;
 
 	public GameObject[] collectablePrefabs;
 	public float collectableProbability;
-	public float collectableLifetime;
 	public float collectableHeight;
 
 	public Rigidbody2D playerRb;
-
-	bool onSand;
 
 	void Awake() {
 		StartCoroutine (FSM());
 	}
 
-	void Update() {
-		onSand = playerRb.velocity.x < 3;
-	}
-
 	void OnEnable() {
-		PlayerKiller.onPlayerDeath += PlayerKiller_onPlayerDeath;
+		ActiveZone.onPlayerDeath += PlayerKiller_onPlayerDeath;
 	}
 
 	void OnDisable() {
-		PlayerKiller.onPlayerDeath -= PlayerKiller_onPlayerDeath;
+		ActiveZone.onPlayerDeath -= PlayerKiller_onPlayerDeath;
 	}
 
 	void PlayerKiller_onPlayerDeath ()
@@ -108,13 +100,11 @@ public class LevelGenerator : MonoBehaviour {
 	}
 
 	void spawnPlatform(Transform at) {
-		GameObject plat = Instantiate (platformPrefab, at.position, Quaternion.identity) as GameObject;
-		Destroy (plat, platformLifetime);
+		Instantiate (platformPrefab, at.position, Quaternion.identity);
 
 		float random = Random.Range(0f, 1f);
 		if (random < collectableProbability) {
-			GameObject collectable = Instantiate (collectablePrefabs[Random.Range(0, collectablePrefabs.Length)], at.position + Vector3.up * collectableHeight, Quaternion.identity) as GameObject;
-			Destroy (collectable, collectableLifetime);
+			Instantiate (collectablePrefabs[Random.Range(0, collectablePrefabs.Length)], at.position + Vector3.up * collectableHeight, Quaternion.identity);
 		}
 	}
 

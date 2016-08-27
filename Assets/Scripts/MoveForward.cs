@@ -12,11 +12,11 @@ public class MoveForward : MonoBehaviour {
 	}
 
 	void OnEnable() {
-		PlayerKiller.onPlayerDeath += PlayerKiller_onPlayerDeath;
+		ActiveZone.onPlayerDeath += PlayerKiller_onPlayerDeath;
 	}
 
 	void OnDisable() {
-		PlayerKiller.onPlayerDeath -= PlayerKiller_onPlayerDeath;
+		ActiveZone.onPlayerDeath -= PlayerKiller_onPlayerDeath;
 	}
 
 	void PlayerKiller_onPlayerDeath ()

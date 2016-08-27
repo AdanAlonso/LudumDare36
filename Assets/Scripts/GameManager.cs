@@ -8,11 +8,11 @@ public class GameManager : MonoBehaviour {
 	public Animator gameOverAnimator;
 
 	void OnEnable() {
-		PlayerKiller.onPlayerDeath += onPlayerDeath;
+		ActiveZone.onPlayerDeath += onPlayerDeath;
 	}
 
 	void OnDisable() {
-		PlayerKiller.onPlayerDeath -= onPlayerDeath;
+		ActiveZone.onPlayerDeath -= onPlayerDeath;
 	}
 
 	void onPlayerDeath() {
