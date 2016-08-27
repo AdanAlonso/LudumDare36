@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: ebd0c18f2d9ff3e46aae57c21f0fdb0a
-timeCreated: 1472309865
+timeCreated: 1472323136
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -57,7 +57,7 @@ TextureImporter:
     - name: prota ciclo correr sprite_0
       rect:
         serializedVersion: 2
-        x: 20
+        x: 26
         y: 1
         width: 48
         height: 98
@@ -75,24 +75,24 @@ TextureImporter:
     - name: prota ciclo correr sprite_1
       rect:
         serializedVersion: 2
-        x: 114
+        x: 120
         y: 1
         width: 59
-        height: 93
+        height: 92
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: 28.5, y: 46.5}
-        - {x: -29.5, y: 46.5}
-        - {x: -29.5, y: -46.5}
-        - {x: 27.5, y: -46.5}
-        - {x: 29.5, y: -43.5}
-        - {x: 29.5, y: 32.5}
+      - - {x: -29.5, y: 46}
+        - {x: -29.5, y: -46}
+        - {x: 27.5, y: -46}
+        - {x: 29.5, y: -43}
+        - {x: 29.5, y: 32}
+        - {x: 28.5, y: 46}
     - name: prota ciclo correr sprite_2
       rect:
         serializedVersion: 2
-        x: 220
+        x: 226
         y: 1
         width: 48
         height: 98
@@ -110,19 +110,22 @@ TextureImporter:
     - name: prota ciclo correr sprite_3
       rect:
         serializedVersion: 2
-        x: 313
+        x: 319
         y: 1
         width: 61
-        height: 93
+        height: 92
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -30.5, y: 46.5}
-        - {x: -30.5, y: -46.5}
-        - {x: 26.5, y: -46.5}
-        - {x: 30.5, y: -41.5}
-        - {x: 30.5, y: 46.5}
+      - - {x: 30.5, y: -36}
+        - {x: 30.5, y: 46}
+        - {x: -29.5, y: 46}
+        - {x: -30.5, y: 44}
+        - {x: -30.5, y: -28}
+        - {x: -24.5, y: -44}
+        - {x: -22.5, y: -46}
+        - {x: 19.5, y: -46}
     outline: []
   spritePackingTag: 
   userData: 

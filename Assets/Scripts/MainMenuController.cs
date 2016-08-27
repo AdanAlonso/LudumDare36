@@ -6,12 +6,25 @@ public class MainMenuController : MonoBehaviour {
 	public GameObject buttonsGameObject;
 	public GameObject creditsGameObject;
 
+	public Animator villainAnim;
+	public float waitToPlayTime;
 
 	void Awake () {
 		Time.timeScale = 0;
 	}
 
 	public void play () {
+		StartCoroutine (playCoroutine());
+	}
+
+	IEnumerator playCoroutine() {
+		GetComponent<CanvasGroup> ().alpha = 0f;
+		float timer = 0f;
+		while (timer < waitToPlayTime) {
+			timer += Time.fixedDeltaTime;
+			yield return 0;
+		}
+		villainAnim.SetTrigger ("Start");
 		Time.timeScale = 1;
 		gameObject.SetActive (false);
 	}

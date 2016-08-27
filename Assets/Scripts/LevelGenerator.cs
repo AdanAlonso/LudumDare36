@@ -21,8 +21,16 @@ public class LevelGenerator : MonoBehaviour {
 	public float collectableLifetime;
 	public float collectableHeight;
 
+	public Rigidbody2D playerRb;
+
+	bool onSand;
+
 	void Awake() {
 		StartCoroutine (FSM());
+	}
+
+	void Update() {
+		onSand = playerRb.velocity.x < 3;
 	}
 
 	IEnumerator FSM() {
