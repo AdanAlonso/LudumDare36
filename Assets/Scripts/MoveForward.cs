@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class CameraMover : MonoBehaviour {
+public class MoveForward : MonoBehaviour {
 
 	public float moveVelocity;
 
