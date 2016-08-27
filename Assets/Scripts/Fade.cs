@@ -8,7 +8,8 @@ public class Fade : MonoBehaviour {
     public float fadeTime;
 
     void Start() {
-        FadeIn();
+		if (Time.timeScale != 0)
+        	FadeIn();
     }
 
     public void FadeIn() {

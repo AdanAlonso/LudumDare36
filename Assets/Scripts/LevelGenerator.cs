@@ -13,9 +13,13 @@ public class LevelGenerator : MonoBehaviour {
 	public Transform[] heights;
 
 	public GameObject platformPrefab;
-
 	public float timeBetweenPlatforms;
 	public float platformLifetime;
+
+	public GameObject collectablePrefab;
+	public float collectableProbability;
+	public float collectableLifetime;
+	public float collectableHeight;
 
 	void Awake() {
 		StartCoroutine (FSM());
@@ -78,6 +82,12 @@ public class LevelGenerator : MonoBehaviour {
 	void spawnPlatform(Transform at) {
 		GameObject plat = Instantiate (platformPrefab, at.position, Quaternion.identity) as GameObject;
 		Destroy (plat, platformLifetime);
+
+		float random = Random.Range(0f, 1f);
+		if (random < collectableProbability) {
+			GameObject collectable = Instantiate (collectablePrefab, at.position + Vector3.up * collectableHeight, Quaternion.identity) as GameObject;
+			Destroy (collectable, collectableLifetime);
+		}
 	}
 
 }

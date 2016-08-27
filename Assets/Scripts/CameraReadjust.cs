@@ -21,10 +21,6 @@ public class CameraReadjust : MonoBehaviour {
 		offset = transform.position - player.position;
 	}
 
-	void Update() {
-		readjust ();
-	}
-
 	void onOnPlatform(bool onPlatform) {
 		this.onPlatform = onPlatform;
 		if (onPlatform)
@@ -34,10 +30,10 @@ public class CameraReadjust : MonoBehaviour {
 	IEnumerator readjust() {
 		while (onPlatform) {
 			Vector3 currentOffset = transform.position - player.position;
-			if (Vector3.Distance (offset, currentOffset) < 0.5f)
+			if (Vector3.Distance (offset, currentOffset) < 0.1f)
 				break;
 			Vector3 position = new Vector3 (player.position.x + offset.x, transform.position.y, transform.position.z);
-			transform.position = Vector3.Lerp (transform.position, position, Time.deltaTime);
+			transform.position = Vector3.Lerp (transform.position, position, Time.deltaTime * readjustSpeed);
 			yield return 0;
 		}
 	}
