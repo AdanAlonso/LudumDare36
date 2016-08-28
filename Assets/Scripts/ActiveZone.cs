@@ -10,7 +10,8 @@ public class ActiveZone : MonoBehaviour {
 			other.GetComponent<Player> ().kill ();
 			if (onPlayerDeath != null)
 				onPlayerDeath ();
+		} else {
+			Destroy (other.gameObject);
 		}
-		// other.gameObject.SetActive (false);
 	}
 }

@@ -25,6 +25,7 @@ public class Player : MonoBehaviour {
 	public float runSfxWait;
 	public float runSandSfxWait;
 	public AudioClip dieSfx;
+	public AudioClip sandColisionSfx;
 
 	[Range(0, 20)]
 	public float runVelocity;
@@ -71,6 +72,7 @@ public class Player : MonoBehaviour {
 			if (contact.point.y < transform.position.y) {
 				grounded = false;
 				if (coll.gameObject.CompareTag ("Platform") && onOnPlatform != null) {
+					AudioManager.instance.playSfx (sandColisionSfx);
 					onPlatform = false;
 					onOnPlatform (onPlatform);
 				}

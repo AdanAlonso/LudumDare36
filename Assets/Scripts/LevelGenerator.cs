@@ -31,6 +31,7 @@ public class LevelGenerator : MonoBehaviour {
 
 	public GameObject rockContainerPrefab;
 	public float rockProbability;
+	public float rockProbabilityShort;
 	public Transform rockHeight;
 
 	public Rigidbody2D playerRb;
@@ -130,15 +131,14 @@ public class LevelGenerator : MonoBehaviour {
 
 		if (currentShortInterval < minShortInterval) {
 			ChangeState (States.s2short);
+		} else if (currentShortInterval >= maxShortInterval)
+			ChangeState (States.s4);
+		else {
+			if (random < 1f / 2)
+				ChangeState (States.s2short);
+			else
+				ChangeState (States.s4);
 		}
-
-		if (currentShortInterval >= maxShortInterval)
-			ChangeState (States.s4);
-
-		if (random < 1f / 2)
-			ChangeState (States.s2short);
-		else
-			ChangeState (States.s4);
 	}
 
 	IEnumerator s2short() {
@@ -154,17 +154,16 @@ public class LevelGenerator : MonoBehaviour {
 				ChangeState (States.s1short);
 			else
 				ChangeState (States.s4short);
+		} else if (currentShortInterval >= maxShortInterval)
+			ChangeState (States.s4);
+		else {
+			if (random < 1f / 3)
+				ChangeState (States.s1short);
+			else if (random < 1f / 3 * 2)
+				ChangeState (States.s4short);
+			else
+				ChangeState (States.s4);
 		}
-
-		if (currentShortInterval >= maxShortInterval)
-			ChangeState (States.s4);
-
-		if (random < 1f / 3)
-			ChangeState (States.s1short);
-		else if (random < 1f / 3 * 2)
-			ChangeState (States.s4short);
-		else 
-			ChangeState (States.s4);
 	}
 
 	IEnumerator s4short() {
@@ -177,15 +176,14 @@ public class LevelGenerator : MonoBehaviour {
 
 		if (currentShortInterval < minShortInterval) {
 			ChangeState (States.s2short);
+		} else if (currentShortInterval >= maxShortInterval)
+			ChangeState (States.s4);
+		else {
+			if (random < 1f / 2)
+				ChangeState (States.s2short);
+			else
+				ChangeState (States.s4);
 		}
-
-		if (currentShortInterval >= maxShortInterval)
-			ChangeState (States.s4);
-
-		if (random < 1f / 2)
-			ChangeState (States.s2short);
-		else
-			ChangeState (States.s4);
 	}
 
 	void spawnPlatform(GameObject platform, Transform at) {
@@ -197,7 +195,7 @@ public class LevelGenerator : MonoBehaviour {
 		}
 
 		random = Random.Range(0f, 1f);
-		if (random < rockProbability) {
+		if (random < (currentShortInterval > 0 ? rockProbabilityShort : rockProbability)) {
 			Instantiate (rockContainerPrefab, rockHeight.position, Quaternion.identity);
 		}
 	}

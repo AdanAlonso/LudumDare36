@@ -8,6 +8,8 @@ public class ToolCounter : MonoBehaviour {
 
 	public Text text;
 
+	public AudioClip getSfx;
+
 	void Start() {
 		counter = 0;
 	}
@@ -21,6 +23,7 @@ public class ToolCounter : MonoBehaviour {
 	}
 
 	void OnCollection() {
+		AudioManager.instance.playSfx (getSfx);
 		++counter;
 		text.text = counter.ToString();
 	}
