@@ -5,12 +5,10 @@ using System.Collections;
 public class ToolCounter : MonoBehaviour {
 
 	public int counter;
-	public string label;
 
-	Text text;
+	public Text text;
 
 	void Start() {
-		text = GetComponent<Text> ();
 		counter = 0;
 	}
 
@@ -24,7 +22,7 @@ public class ToolCounter : MonoBehaviour {
 
 	void OnCollection() {
 		++counter;
-		text.text = label + counter;
+		text.text = counter.ToString();
 	}
 
 }

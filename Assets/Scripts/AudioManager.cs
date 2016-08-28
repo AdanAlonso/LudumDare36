@@ -6,14 +6,14 @@ public class AudioManager : MonoBehaviour {
 
 	public static AudioManager instance;
 
-	AudioSource sfxSrc;
+	public AudioSource bgmSrc;
+	public AudioSource sfxSrc;
 
 	void Awake() {
-		if (this != instance)
-			return;
 		if (instance == null)
 			instance = this;
-		sfxSrc = gameObject.AddComponent<AudioSource>();
+		if (this != instance)
+			Destroy (gameObject);
 	}
 
 	public void playSfx(AudioClip sfx) {

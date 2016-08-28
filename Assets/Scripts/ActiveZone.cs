@@ -11,6 +11,6 @@ public class ActiveZone : MonoBehaviour {
 			if (onPlayerDeath != null)
 				onPlayerDeath ();
 		}
-        Destroy(other.gameObject);
+		// other.gameObject.SetActive (false);
 	}
 }

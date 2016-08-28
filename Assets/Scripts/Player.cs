@@ -19,6 +19,9 @@ public class Player : MonoBehaviour {
 	Rigidbody2D rb;
 	public Animator a;
 
+	public AudioClip jumpSfx;
+	public AudioClip dieSfx;
+
 	[Range(0, 20)]
 	public float runVelocity;
 	[Range(0, 30)]
@@ -97,6 +100,7 @@ public class Player : MonoBehaviour {
 	IEnumerator Jumping() {
 		if (jumps < maxJumps) {
 			rb.velocity = new Vector2(rb.velocity.x, jumpVelocity);
+			AudioManager.instance.playSfx (jumpSfx);
 			if (!grounded)
 				++jumps;
 		}
@@ -119,6 +123,7 @@ public class Player : MonoBehaviour {
 	IEnumerator Dead() {
 		rb.velocity = Vector2.zero;
 		rb.isKinematic = true;
+		AudioManager.instance.playSfx (dieSfx);
 		while (state == States.Dead) {
 			yield return 0;
 		}

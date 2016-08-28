@@ -20,6 +20,10 @@ public class LevelGenerator : MonoBehaviour {
 	public float collectableProbability;
 	public float collectableHeight;
 
+	public GameObject rockContainerPrefab;
+	public float rockProbability;
+	public Transform rockHeight;
+
 	public Rigidbody2D playerRb;
 
 	void Awake() {
@@ -105,6 +109,11 @@ public class LevelGenerator : MonoBehaviour {
 		float random = Random.Range(0f, 1f);
 		if (random < collectableProbability) {
 			Instantiate (collectablePrefabs[Random.Range(0, collectablePrefabs.Length)], at.position + Vector3.up * collectableHeight, Quaternion.identity);
+		}
+
+		random = Random.Range(0f, 1f);
+		if (random < rockProbability) {
+			Instantiate (rockContainerPrefab, rockHeight.position, Quaternion.identity);
 		}
 	}
 
