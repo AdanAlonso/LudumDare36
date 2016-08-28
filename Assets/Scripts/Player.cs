@@ -20,6 +20,10 @@ public class Player : MonoBehaviour {
 	public Animator a;
 
 	public AudioClip jumpSfx;
+	public AudioClip runSfx;
+	public AudioClip runSandSfx;
+	public float runSfxWait;
+	public float runSandSfxWait;
 	public AudioClip dieSfx;
 
 	[Range(0, 20)]
@@ -31,9 +35,10 @@ public class Player : MonoBehaviour {
 
 	int jumps = 0;
 	bool grounded = false;
+	bool onPlatform = false;
 	bool wallOnSide = false;
 
-	void Awake() {
+	void Start() {
 		rb = GetComponent<Rigidbody2D> ();
 		StartCoroutine (FSM());
 	}
@@ -46,8 +51,10 @@ public class Player : MonoBehaviour {
 			}
 			if (contact.point.y < transform.position.y) {
 				grounded = true;
-				if (coll.gameObject.CompareTag("Platform") && onOnPlatform != null)
-					onOnPlatform (true);
+				if (coll.gameObject.CompareTag ("Platform") && onOnPlatform != null) {
+					onPlatform = true;
+					onOnPlatform (onPlatform);
+				}
 				a.SetBool ("Grounded", grounded);
 				jumps = 0;
 				break;
@@ -63,8 +70,10 @@ public class Player : MonoBehaviour {
 			}
 			if (contact.point.y < transform.position.y) {
 				grounded = false;
-				if (coll.gameObject.CompareTag("Platform") && onOnPlatform != null)
-					onOnPlatform (false);
+				if (coll.gameObject.CompareTag ("Platform") && onOnPlatform != null) {
+					onPlatform = false;
+					onOnPlatform (onPlatform);
+				}
 				a.SetBool ("Grounded", grounded);
 				++jumps;
 				break;
@@ -88,11 +97,20 @@ public class Player : MonoBehaviour {
 	}
 
 	IEnumerator Running() {
+		StartCoroutine (playRunningSfx());
 		while (state == States.Running) {
 			moveForward ();
 
 			if (Input.GetKeyDown (jumpKey))
 				ChangeState (States.Jumping);
+			yield return 0;
+		}
+	}
+
+	IEnumerator playRunningSfx() {
+		while (state == States.Running) {
+			AudioManager.instance.playSfx (onPlatform ? runSfx : runSandSfx);
+			yield return new WaitForSeconds (onPlatform ? runSfxWait : runSandSfxWait);
 			yield return 0;
 		}
 	}
@@ -123,6 +141,9 @@ public class Player : MonoBehaviour {
 	IEnumerator Dead() {
 		rb.velocity = Vector2.zero;
 		rb.isKinematic = true;
+		AudioManager.instance.mixer.SetFloat("MelodyVol", -80);
+		AudioManager.instance.mixer.SetFloat("ChorusVol", -80);
+		yield return new WaitForSeconds (0.1f);
 		AudioManager.instance.playSfx (dieSfx);
 		while (state == States.Dead) {
 			yield return 0;

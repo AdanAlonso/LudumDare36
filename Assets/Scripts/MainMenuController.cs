@@ -26,6 +26,7 @@ public class MainMenuController : MonoBehaviour {
 		}
 		villainAnim.SetTrigger ("Start");
 		Time.timeScale = 1;
+		AudioManager.instance.mixer.SetFloat("MelodyVol", 0);
 		gameObject.SetActive (false);
 	}
 
