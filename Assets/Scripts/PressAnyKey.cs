@@ -3,6 +3,8 @@ using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class PressAnyKey : MonoBehaviour {
+
+	public int toScene;
 	
 	void Start () {
 		StartCoroutine (pressAnyKey());
@@ -17,6 +19,6 @@ public class PressAnyKey : MonoBehaviour {
 		}
 		GetComponent<Fade> ().FadeOut ();
 		yield return new WaitForSeconds (GetComponent<Fade> ().fadeTime);
-		SceneManager.LoadScene (1);
+		SceneManager.LoadScene (toScene);
 	}
 }
