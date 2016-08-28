@@ -103,7 +103,7 @@ public class Player : MonoBehaviour {
 		while (state == States.Running) {
 			moveForward ();
 
-			if (Input.GetKeyDown (jumpKey))
+			if (Input.GetKeyDown (jumpKey) || (Input.touchCount > 0))
 				ChangeState (States.Jumping);
 			yield return 0;
 		}
@@ -134,7 +134,7 @@ public class Player : MonoBehaviour {
 
 			if (grounded)
 				ChangeState(States.Running);
-			if (Input.GetKeyDown (jumpKey))
+			if (Input.GetKeyDown (jumpKey) || (Input.touchCount > 0))
 				ChangeState (States.Jumping);
 			yield return 0;
 		}
